@@ -1,12 +1,11 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
+import { Any } from 'json-schema-to-ts/lib/meta-types';
 import TodoService from 'src/services/TodoService';
-
-import schema from './schema';
 
 const todoService = new TodoService()
 
-const listTodos: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async () => {
+const listTodos: ValidatedEventAPIGatewayProxyEvent<Any> = async () => {
 
     const list = await todoService.list()
 

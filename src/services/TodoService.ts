@@ -3,10 +3,10 @@ import TodoRepository from "src/repositories/TodoRepository";
 
 export default class TodoService{
 
-    todoRepository: TodoRepository
+    private todoRepository: TodoRepository
 
-    constructor(){
-        this.todoRepository = new TodoRepository()
+    constructor(todoRepository: TodoRepository = new TodoRepository()){
+        this.todoRepository = todoRepository
     }
 
     async list() : Promise<TodoItem[]> {
