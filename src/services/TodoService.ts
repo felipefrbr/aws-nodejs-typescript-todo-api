@@ -1,25 +1,15 @@
 import { TodoItem } from "src/models/TodoItem";
+import TodoRepository from "src/repositories/TodoRepository";
 
 export default class TodoService{
 
-   async list() : Promise<TodoItem[]> {
-       
-        const list = []
+    todoRepository: TodoRepository
 
-        list.push({
-            id: "1",
-            name: "List 1",
-            done: false,
-            createdAt: "2022-06-25"
-        })
+    constructor(){
+        this.todoRepository = new TodoRepository()
+    }
 
-        list.push({
-            id: "2",
-            name: "List 2",
-            done: true,
-            createdAt: "2022-06-25"
-        })
-
-        return list
-   }
+    async list() : Promise<TodoItem[]> {
+        return await this.todoRepository.listAll()
+    }
 }
