@@ -7,7 +7,7 @@ import createTodo from '@functions/createTodo';
 const serverlessConfiguration: AWS = {
   service: 'todo-api',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: ['serverless-esbuild', 'serverless-offline', 'serverless-dynamodb-local'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
