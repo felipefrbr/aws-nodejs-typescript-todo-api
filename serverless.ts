@@ -15,9 +15,11 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
+    stage: 'dev',
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      TODOS_TABLE: 'Todos-dev',
     },
   },
   // import the function via paths
@@ -34,7 +36,41 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
+    dynamodb:{
+      start: {
+        port: 8000,
+        inMemory: true,
+        migrate: true
+      },
+      stages: ['dev']
+    }
   },
+  resources: {
+    Resources:{
+      TodosDynamoDBTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'Todos-dev',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'id',
+              AttributeType: 'S'
+            }
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'id',
+              KeyType: 'HASH'
+            }
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1
+          }
+        }
+      }
+    }
+  }
 };
 
 module.exports = serverlessConfiguration;
