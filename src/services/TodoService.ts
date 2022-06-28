@@ -25,4 +25,8 @@ export default class TodoService{
         }
         return await this.todoRepository.save(newItem)
     }
+
+    async delete(id: string){
+        await this.todoRepository.delete(id)
+    }
 }

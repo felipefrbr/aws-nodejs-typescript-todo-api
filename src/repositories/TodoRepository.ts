@@ -26,6 +26,13 @@ export default class TodoRepository{
     
         return todoItem
     }
+
+    async delete(id: string){
+        await this.docClient.delete({
+            TableName: this.todoTable,
+            Key: { 'id': id }
+        }).promise()
+    }
 }
 
 function createDynamoDBClient() { 

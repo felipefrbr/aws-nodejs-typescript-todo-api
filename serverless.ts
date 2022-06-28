@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import hello from '@functions/hello';
 import listTodos from '@functions/listTodos';
 import createTodo from '@functions/createTodo';
+import deleteTodo from '@functions/deleteTodo';
 
 const serverlessConfiguration: AWS = {
   service: 'todo-api',
@@ -23,7 +24,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, listTodos, createTodo },
+  functions: { hello, listTodos, createTodo, deleteTodo },
   package: { individually: true },
   custom: {
     esbuild: {
