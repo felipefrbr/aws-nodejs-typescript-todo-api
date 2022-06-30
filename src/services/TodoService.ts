@@ -29,4 +29,8 @@ export default class TodoService{
     async delete(id: string){
         await this.todoRepository.delete(id)
     }
+
+    async update(partialTodo: Partial<TodoItem>): Promise<TodoItem>{
+        return await this.todoRepository.updateTodo(partialTodo)
+    }
 }

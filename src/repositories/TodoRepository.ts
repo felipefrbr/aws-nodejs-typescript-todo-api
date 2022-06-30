@@ -27,6 +27,24 @@ export default class TodoRepository{
         return todoItem
     }
 
+    async updateTodo(partialTodo: Partial<TodoItem>){
+        const updated = await this.docClient.update({
+            TableName: this.todoTable,
+            Key: { 'id': partialTodo.id },
+            UpdateExpression: 'set #name = :name, done = :done',
+            ExpressionAttributeNames: {
+            '#name': 'name'
+            },
+            ExpressionAttributeValues: {
+            ':name': partialTodo.name,
+            ':done': partialTodo.done
+            },
+            ReturnValues: 'ALL_NEW'
+        }).promise()
+        
+        return updated.Attributes as TodoItem
+    }
+
     async delete(id: string){
         await this.docClient.delete({
             TableName: this.todoTable,
